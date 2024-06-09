@@ -25,6 +25,14 @@
 > podman-compose up
 ```
 
+## Endereços carregados
+- <http://db.localhost:8000>
+- <http://web.localhost:8000>
+- <http://fontes.localhost:8000>
+- <http://binarios.localhost:8000>
+- <http://analise.localhost:8000>
+- <http://ci.localhost:8000>
+
 ## Docker Compose Services: Container Name/Hostname
 - jenkins: jenkins/ci.localhost
 - gitlab: gitlab/fontes.localhost
