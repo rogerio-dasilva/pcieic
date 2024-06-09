@@ -46,6 +46,86 @@
 - Token do Sonar para usar no Jenkins:
 - Token do Artifactoy para usar no Jenkins:
 
+## Arquivos
+
+Jenkinsfile
+
+```groovy
+pipeline {
+    agent any
+    
+    environment {
+        mvnHome =  tool name: 'maven-instalacao', type: 'maven'
+    }
+    
+    stages {
+//        stage('Preparar') {
+//            steps {
+//                echo 'Olá Mundo!'
+////                sh "${mvnHome}/bin/mvn  -version"
+//                withMaven(globalMavenSettingsConfig: '', jdk: 'openjdk-17', maven: 'maven-instalacao', mavenSettingsConfig: '', traceability: true) {
+//                    sh "mvn -version" 
+//                }
+//            }
+//        }
+        stage('Conferir Fontes') {
+            steps {
+                git credentialsId: 'gitlab-username', url: 'http://gitlab/tst/tst-gitlab.git'
+            }
+        }
+        stage('Construir') {
+            steps {
+//                sh "${mvnHome}/bin/mvn clean verify"
+//                archiveArtifacts artifacts: '**/*.war', followSymlinks: false, onlyIfSuccessful: true
+                withMaven(globalMavenSettingsConfig: '', jdk: 'openjdk-17', maven: 'maven-instalacao', mavenSettingsConfig: '', traceability: true) {
+                    sh "mvn -e -U clean install" 
+                }
+            }
+        }
+//        stage('Testar') {
+//            steps {
+//                echo 'Testaando...'
+//            }
+//        }
+        stage('Arquivar') {
+            steps {
+//                archiveArtifacts artifacts: '**/*.war', followSymlinks: false
+//                artifactoryUpload failNoOp: false
+//                withMaven(globalMavenSettingsConfig: '', jdk: 'openjdk-17', maven: 'maven-instalacao', mavenSettingsConfig: '', traceability: true) {
+//                    sh "mvn deploy -DaltSnapshotDeploymentRepository=snapshots::default::http://artifactory:8081/artifactory/libs-snapshot -DaltReleaseDeploymentRepository=central::default:http://artifactory:8081/artifactory/libs-release" 
+//                }
+                withMaven(globalMavenSettingsConfig: 'maven-settings-artifactory', jdk: '', maven: 'maven-instalacao', mavenSettingsConfig: '', traceability: true) {
+                    sh "mvn deploy -Dmaven.test.skip=true"
+                }
+//                 echo 'Arquivando...'
+            }
+        }
+        stage('Analisar') {
+            steps {
+                withSonarQubeEnv(credentialsId: 'sonarqube_token', installationName: 'sonarquber-instalacao') {
+                    sh '${mvnHome}/bin/mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar'
+                }
+            }
+        }
+        stage('Implantar') {
+            environment {
+                TOMCAT_USER_PWD = credentials('tomcat-user-pwd')
+                TOMCAT_DEPLOY = "http://${TOMCAT_USER_PWD}@tomcat:8080/manager/deploy?path=&update=true"
+            }
+            steps {
+                sh('echo Implantando...')
+                sh 'cp target/*.war target/ROOT.war'
+                sh 'curl --fail-with-body --upload-file "target/ROOT.war" "http://${TOMCAT_USER_PWD}@tomcat:8080/manager/text/deploy?path=&update=true"'
+                
+//                deploy adapters: [tomcat9(credentialsId: 'tomcat-user-pwd', path: '', url: 'http://tomcat:8080')], 
+//                    onFailure: false, 
+//                    war: 'target/ROOT.war'
+            }
+        }
+    }
+}
+```
+
 ## Referências usadas
 - <https://docs.podman.io/en/latest/index.html>
 - <https://github.com/containers/podman-compose>
