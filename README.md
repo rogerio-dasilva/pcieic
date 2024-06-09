@@ -34,7 +34,7 @@
 - tomcat: tomcat/web.localhost
 - nginx: nginx/vip.localhost
 
-## Credencias e Chaves de Acesso a serem criadas
+## Credenciais e Chaves de Acesso a serem criadas
 - Administrador usuario/senha do Jenkins:
 - Administrador usuário/senha do Sonar::
 - Administrador usuário/senha do Artifactory:
