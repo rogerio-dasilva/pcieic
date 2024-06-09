@@ -18,6 +18,13 @@
 127.0.0.1       web.localhost
 ```
 
+## Iniciar
+
+```shell
+> git clone
+> podman-compose up
+```
+
 ## Docker Compose Services: Container Name/Hostname
 - jenkins: jenkins/ci.localhost
 - gitlab: gitlab/fontes.localhost
