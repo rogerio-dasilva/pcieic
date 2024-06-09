@@ -6,11 +6,11 @@ services:
     hostname: "h2"
     volumes:
       - "h2_data:/h2-data"
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
     networks:
       - netprojeto
   artifactory:
-# admin/1Adminpwd
-#    image: "releases-docker.jfrog.io/jfrog/artifactory-cpp-ce:7.63.12"
     image: "releases-docker.jfrog.io/jfrog/artifactory-oss:6.23.42"
     container_name: "artifactory"
     hostname: "artifactory"
@@ -18,75 +18,56 @@ services:
     user: "root"
     environment:
       - JF_ROUTER_ENTRYPOINTS_EXTERNALPORT=8082
-#    ports:
-#      - 8009:8081 # for artifactory communication
-#      - 8010:8082 # for router communication
     volumes:
       - "./artifactory/var:/var/opt/jfrog/artifactory"
+      - "/etc/timezone:/etc/timezone:ro"
       - "/etc/localtime:/etc/localtime:ro"
     restart: always
     networks:
       - netprojeto
     depends_on:
       - h2
-#    logging:
-#      driver: json-file
-#      options:
-#        max-size: "50m"
-#        max-file: "10"
-#    ulimits:
-#      nproc: 65535
-#      nofile:
-#        soft: 32000
-#        hard: 40000
   jenkins:
-# rogerio/rogerio
-# jenkins/1Jenkinspwd  token/A66yX44xADcv4uYfVoJB
     image: "docker.io/jenkins/jenkins:2.460-jdk17"
     container_name: "jenkins"
     hostname: "jenkins"
     privileged: true
     user: "root"
-#    ports:
-#      - "8003:8080"
-#      - "50000:50000"
     volumes:
       - "jenkins_home:/var/jenkins_home"
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
     networks:
       - netprojeto
     depends_on:
       - artifactory
   gitlab:
-# root/gitlabrogerio
     image: "docker.io/gitlab/gitlab-ce:12.10.14-ce.0"
     container_name: "gitlab"
     hostname: "fontes.localhost"
     restart: "always"
-#    ports:
-#      - "8005:80"
-#      - "8044:443"
-#      - "8022:22"
     volumes:
       - "./gitlab/config:/etc/gitlab"
       - "./gitlab/logs:/var/log/gitlab"
       - "./gitlab/data:/var/opt/gitlab"
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
     networks:
       - netprojeto
     depends_on:
       - jenkins
   sonarqube:
-# root/gitlabrogerio
     image: "docker.io/sonarqube:9.9-community"
     container_name: "sonarqube"
     hostname: "sonarqube"
-#    ports:
-#      - "9001:9000"
     volumes:
       - sonarqube_conf:/opt/sonarqube/conf
       - sonarqube_data:/opt/sonarqube/data
       - sonarqube_extensions:/opt/sonarqube/extensions
       - sonarqube_logs:/opt/sonarqube/logs
       - sonarqube_temp:/opt/sonarqube/temp
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
     networks:
       - netprojeto
     depends_on:
@@ -95,11 +76,11 @@ services:
     image: docker.io/tomcat:9.0.89-jre17
     container_name: tomcat
     hostname: "web.localhost"
-#    ports:
-#      - "8001:8080"
     volumes:
       - ./tomcat/config/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml
       - ./tomcat/webapps:/usr/local/tomcat/webapps
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
     networks:
       - netprojeto
     depends_on:
@@ -114,6 +95,8 @@ services:
       - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
       - "./nginx/proxyConf:/etc/nginx/conf.d"
       - "./nginx/html:/usr/share/nginx/html"
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
       - "nginx_log:/var/log/nginx"
     networks:
       - netprojeto
@@ -127,20 +110,13 @@ volumes:
   gitlab_log:
   gitlab_data:
   sonarqube_conf:
-
   sonarqube_data:
-
   sonarqube_extensions:
-
   sonarqube_logs:
-
   sonarqube_temp:
-
   sonar_db:
-
   sonar_db_data:
   nginx_log:
 networks:
   netprojeto:
     driver: bridge
-
