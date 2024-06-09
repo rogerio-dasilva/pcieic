@@ -21,7 +21,7 @@
 ## Iniciar
 
 ```shell
-> git clone
+> git clone https://github.com/rogerio-dasilva/pcieic.git
 > podman-compose up
 ```
 
