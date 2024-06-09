@@ -49,3 +49,5 @@
 - <https://docs.gitlab.com/ee/security/webhooks.html#allowlist-for-local-requests>
 - <https://stackoverflow.com/questions/45777031/maven-not-found-in-jenkins>
 - <https://github.com/wolkenheim/apache-tomcat-9-manager-gui>
+- <https://serverfault.com/questions/683605/docker-container-time-timezone-will-not-reflect-changes>
+- 
