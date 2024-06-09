@@ -1,0 +1,9 @@
+/artifactory/
+/gitlab/
+/h2/
+/jenkins/
+/reposilite/
+/youtrack/
+/bkp/
+/tomcat/webapps/ROOT/
+/tomcat/webapps/ROOT.war
