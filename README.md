@@ -74,6 +74,111 @@ sudo podman-compose up
 
 ## Arquivos
 
+Maven global settings.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" 
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+  <pluginGroups>
+  </pluginGroups>
+
+  <proxies>
+  </proxies>
+
+  <servers>
+  </servers>
+
+  <mirrors>
+  </mirrors>
+ 
+  <profiles>
+    <profile>
+      <repositories>
+        <repository>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>central</id>
+          <name>libs-release</name>
+          <url>http://artifactory:8081/artifactory/libs-release</url>
+        </repository>
+        <repository>
+          <snapshots />
+          <id>snapshots</id>
+          <name>libs-snapshot</name>
+          <url>http://artifactory:8081/artifactory/libs-snapshot</url>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>central</id>
+          <name>libs-release</name>
+          <url>http://artifactory:8081/artifactory/libs-release</url>
+        </pluginRepository>
+        <pluginRepository>
+          <snapshots />
+          <id>snapshots</id>
+          <name>libs-snapshot</name>
+          <url>http://artifactory:8081/artifactory/libs-snapshot</url>
+        </pluginRepository>
+      </pluginRepositories>
+      <id>artifactory</id>
+      <properties>
+        <altSnapshotDeploymentRepository>snapshots::default::http://artifactory:8081/artifactory/libs-snapshot/</altSnapshotDeploymentRepository>
+        <altReleaseDeploymentRepository>central::default::http://artifactory:8081/artifactory/libs-release/</altReleaseDeploymentRepository>
+      </properties>
+    </profile>
+    <profile>
+      <repositories>
+        <repository>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>central</id>
+          <name>maven-release</name>
+          <url>https://repo1.maven.org/maven2</url>
+        </repository>
+        <repository>
+          <snapshots />
+          <id>snapshots</id>
+          <name>maven-snapshot</name>
+          <url>https://repo1.maven.org/maven2</url>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>central</id>
+          <name>maven-release</name>
+          <url>https://repo1.maven.org/maven2</url>
+        </pluginRepository>
+        <pluginRepository>
+          <snapshots />
+          <id>snapshots</id>
+          <name>maven-snapshot</name>
+          <url>https://repo1.maven.org/maven2</url>
+        </pluginRepository>
+      </pluginRepositories>
+      <id>maven</id>
+    </profile>
+  </profiles>
+
+  <activeProfiles>
+    <activeProfile>maven</activeProfile>
+    <activeProfile>artifactory</activeProfile>
+  </activeProfiles>
+</settings>
+```
+
+
 Jenkinsfile
 
 ```groovy
