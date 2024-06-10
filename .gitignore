@@ -7,3 +7,5 @@
 /bkp/
 /tomcat/webapps/ROOT/
 /tomcat/webapps/ROOT.war
+/construir/jenkins_home/
+docker-compose.yml.bkp

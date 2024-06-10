@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  jenkins:
+    build: .
+    image: "ras/jenkins-plugins:2.460-jdk17"
+    container_name: "jenkins"
+    hostname: "jenkins"
+    privileged: true
+    user: "root"
+    restart: "on-failure"
+    environments:
+      - JENKINS_OPTS="--prefix=/jenkins"
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - "./jenkins_home:/var/jenkins_home"
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    networks:
+      - netprojeto
+networks:
+  netprojeto:
+    driver: bridge
