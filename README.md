@@ -179,3 +179,6 @@ pipeline {
 - <https://k21academy.com/devops-job-bootcamp/ci-cd-pipeline-using-jenkins/>
 - <https://www.baeldung.com/ops/jenkins-scripted-vs-declarative-pipelines>
 - <https://www.youtube.com/watch?v=lH766fPpBcE>
+- <https://github.com/jenkinsci/docker>
+- <https://github.com/jenkinsci/configuration-as-code-plugin/tree/master>
+- <https://github.com/jenkinsci/plugin-installation-manager-tool/?tab=readme-ov-file>
