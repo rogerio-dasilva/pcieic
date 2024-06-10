@@ -18,11 +18,29 @@
 127.0.0.1       web.localhost
 ```
 
-## Iniciar
+## Baixar projeto
 
 ```shell
-> git clone https://github.com/rogerio-dasilva/pcieic.git
-> podman-compose up
+git clone https://github.com/rogerio-dasilva/pcieic.git
+```
+
+## Preparar Imagem Jenkins com plugins
+
+Criar imagem local do Jenkins com os plugins necessários, que estão no arquivo build/plugins.txt
+
+```shell
+cd build
+podman-compose build
+```
+
+## Iniciar
+
+Para o nginx fazer ligação com a porta 80 será necessário executar podman com sudo.
+
+> Nota: com docker verifique se não é necessário
+
+```shell
+sudo podman-compose up
 ```
 
 ## Endereços carregados
