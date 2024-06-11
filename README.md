@@ -24,20 +24,31 @@
 git clone https://github.com/rogerio-dasilva/pcieic.git
 ```
 
+Estrutura de pastas e arquivos:
+
+```text
+
+```
+
+
 ## Preparar Imagem Jenkins com plugins
 
-Criar imagem local do Jenkins com os plugins necessários, que estão no arquivo build/plugins.txt
+Criar imagem local do Jenkins com os plugins necessários, que estão no arquivo build/plugins.txt.
+
+Faça a cosntrução com sudo para a imagem ficar disponível para o próximo passo.
+
+> Nota: verifique se é necessário com docker/docker-compose
 
 ```shell
 cd build
-podman-compose build
+sudo podman-compose build
 ```
 
 ## Iniciar
 
 Para o nginx fazer ligação com a porta 80 será necessário executar podman com sudo.
 
-> Nota: com docker verifique se não é necessário
+> Nota: verifique se é necessário com docker/docker-compose
 
 ```shell
 sudo podman-compose up
