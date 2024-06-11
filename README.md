@@ -58,20 +58,20 @@ Estrutura de pastas e arquivos:
 
 ## Preparar Imagem Jenkins com plugins
 
-Criar imagem local do Jenkins com os plugins necessários, que estão no arquivo build/plugins.txt.
+Criar imagem local do Jenkins com os plugins necessários que estão no arquivo build/plugins.txt.
 
-Faça a cosntrução com sudo para a imagem ficar disponível para o próximo passo.
+Faça primeiro a construção, com sudo, da imagem jenkins com plugins selecionados para a imagem ficar disponível para o próximo passo.
 
 > Nota: verifique se é necessário com docker/docker-compose
 
 ```shell
-cd build
+cd construir
 sudo podman-compose build
 ```
 
 ## Iniciar
 
-Para o nginx fazer ligação com a porta 80 será necessário executar podman com sudo.
+Para o nginx fazer ligação com a porta 80 no WSL2 será necessário executar podman com sudo.
 
 > Nota: verifique se é necessário com docker/docker-compose
 
@@ -80,12 +80,12 @@ sudo podman-compose up
 ```
 
 ## Endereços carregados
-- <http://db.localhost:8000>
-- <http://web.localhost:8000>
-- <http://fontes.localhost:8000>
-- <http://binarios.localhost:8000>
-- <http://analise.localhost:8000>
-- <http://ci.localhost:8000>
+- <http://db.localhost> -> H2 Database
+- <http://web.localhost> -> Tomcat
+- <http://fontes.localhost> -> Gitlab
+- <http://binarios.localhost> -> JFrog Artifactory
+- <http://analise.localhost> -> SonarQube
+- <http://ci.localhost> -> Jenkins
 
 ## Docker Compose Services: Container Name/Hostname
 - jenkins: jenkins/ci.localhost
@@ -94,19 +94,48 @@ sudo podman-compose up
 - h2: h2/db.localhost
 - artifactory: artifactory/binarios.localhost
 - tomcat: tomcat/web.localhost
-- nginx: nginx/vip.localhost
 
-## Credenciais e Chaves de Acesso a serem criadas
-- Administrador usuario/senha do Jenkins:
-- Administrador usuário/senha do Sonar::
-- Administrador usuário/senha do Artifactory:
-- Administrador usuário/senha do Gitlab:
+## Credenciais e Chaves de Acesso default
+- Administrador usuario/senha do Jenkins: token de acesso da instalação incial
+- Administrador usuário/senha do Sonar: admin/admin
+- Administrador usuário/senha do Artifactory: admin/password
+- Administrador usuário/senha do Gitlab: root/\<criado no primeiro acesso>
 - Administrador usuário/senha do H2: sa/sa
 - Administrador usuário/senha do tomcat: tomcat/tomcat
+
+### Token da instalação incial do Jenkins
+É apresenta na log de inicialização o token para ser utilizado na configuração inicial do Jenkins, como mostrado abaixo:
+
+```log
+Jenkins initial setup is required. An admin user has been created and a password generated.
+Please use the following password to proceed to installation:
+
+78651259c23d4b2dae4a12d7cc7610e2
+
+This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
+``
+
+Se for difícil encontrá-lo, pode-se encontrá-lo no volume montado
+
+```shell
+// ver a localização do volume
+sudo podman inspect jenkins | grep volume
+"Source": "/var/lib/containers/storage/volumes/ci_jenkins_home/_data",
+
+// abra um terminal com sudo e veja o arquivo de token
+sudo bash
+cd /var/lib/containers/storage/volumes/ci_jenkins_home/_data/secrets/
+cat initialAdminPassword
+```
+
 - Token do Gitlab para usar no Jenkins:
 - Token do Jenkins para usar no Gitlab:
 - Token do Sonar para usar no Jenkins:
 - Token do Artifactoy para usar no Jenkins:
+
+
+
+
 
 ## Arquivos
 
