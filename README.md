@@ -27,7 +27,32 @@ git clone https://github.com/rogerio-dasilva/pcieic.git
 Estrutura de pastas e arquivos:
 
 ```text
-
+.
+├── construir
+│   ├── Dockerfile
+│   ├── docker-compose.yml
+│   └── plugins.txt
+├── nginx
+│   ├── html
+│   │   ├── custom_404.html
+│   │   ├── custom_50x.html
+│   │   └── index.html
+│   ├── proxyConf
+│   │   ├── custom.conf
+│   │   └── server.conf
+│   └── nginx.conf
+├── tomcat
+│   └── config
+│   │   └── tomcat-users.xml
+│   └── webapps
+│       ├── host-manager
+│       │   └── <vários arquivos>
+│       └── manager
+│           └── <vários arquivos>
+├── .gitignore
+├── LICENSE
+├── README.md
+└── docker-compose.yml
 ```
 
 
