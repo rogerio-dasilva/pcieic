@@ -125,11 +125,8 @@ cat initialAdminPassword
 - Token do Sonar para usar no Jenkins:
 - Token do Artifactoy para usar no Jenkins:
 
-
 ## Preparar a configuração das ferramentas
-
 ### SonarQube
-
 - Use o acesso default para configurar a nova senha e anote
 - Criar o token de acesso para o Jenkins enviar os dados para o sonar
   - No menu Admistration > Security > Users
@@ -138,6 +135,22 @@ cat initialAdminPassword
   - Copie o token e anote: squ_be087d42133889a89af82538e3f9fd6879fbd366
   - Clique em Done
 
+### JFrog Artifactory
+- Use o acesso default para configurar a nova senha e anote. Será redirecionado para Quick Setup
+- Na configuração de Proxy, use skip
+- Em Create repo: marque gerenric e maven
+- Depois de concluído a configuração, gerar token de acesso:
+  - Na cabeçalho, clique em Welcome, admin > Edit Profile
+  - Em Current Password, informe a senha e clique em Unlock
+  - Em Authentication Settings, API Key, Clique no ícone engrenagem, para gerar o token
+  - Clique no ícone Copy Key to clipboard e anote: AKCpBseqkxSKiULPt4ecHcJAunro22qrbenWjdqfPsR8b2VEn7hX9ttbEB2L4vKh38L8wjvPS
+
+### Gitlab
+- Use o acesso default para configurar a nova senha e anote
+- Clique em New Group: informe um nome qualquer. Exemplo: tst
+- Clique em Create group
+- Clique em New project: informe um nome qualquer. Exemplo: tst-gitlab
+- Clique em Create project
 
 ## Arquivos
 
