@@ -147,7 +147,7 @@ cat initialAdminPassword
 
 ### Gitlab
 
-1 Login
+1 Login e Configuração
 - Use o acesso default para configurar a nova senha e anote
 - Criar token de acesso
   - Vá no menu Cofigurações no cabeçalho
@@ -156,6 +156,12 @@ cat initialAdminPassword
   - Expira: deixe em branco
   - Scopes: marque: api, read_user, read_api, read_repository, write_repository
   - Clique em Create acesso pessoal token e anote: 4Vff_1A5nTf6R_LKuWoH
+- Habilitar acesso em localhost
+  - Clique em Admin area no cabeçalho
+  - Em configurações no menu lateral
+  - Rede
+  - Pedidos de Saída
+  - Marque: Allow requests to the local network from web hooks and services
 
 2 Projeto de exemplo:
 - Clique em New Group: informe um nome qualquer. Exemplo: tst
@@ -205,6 +211,19 @@ Adicionar projeto de exemplo aqui
   - API Token: informe o token criado no gitlab
   - ID: gitlab_token
   - Description: gitlab_token
+- Nova Credencial para Gitlab
+  - Kind: Secret text
+  - Scope: Global
+  - Secret: informe o token criado no gitlab
+  - ID: gitlab_token
+  - Description: gitlab_token
+- Nova Credencial para Gitlab
+  - Kind: Username with password
+  - Scope: Global
+  - Username: root
+  - Password: informe a senha
+  - ID: gitlab_user_pwd
+  - Description: gitlab_user_pwd
 - Nova Credencial para Artifactory
   - Kind:  Username with password
   - Scope: Global
@@ -212,6 +231,13 @@ Adicionar projeto de exemplo aqui
   - Passoword: informe o tokean api gerado no artifactory
   - ID: artifactory_token
   - Description: artifactory_token
+- Nova Credencial para Tomcat
+  - Kind:  Username with password
+  - Scope: Global
+  - Username: tomcat
+  - Passoword: tomcat
+  - ID: tomcat-user-pwd
+  - Description: tomcat-user-pwd
 
 3 Arquivo Gerenciados
 - Clique no menu: Gerenciar jenkins
@@ -228,7 +254,7 @@ Adicionar projeto de exemplo aqui
   - Content: informe o conteúdo do xml Maven global settings.xml abaixo
   - Clique em Submit
 
-4 Cofiguração em System
+4 Configuração em System
 - Clique no menu: Gerenciar jenkins
 - Clique em: System
 - SonarQube installations
@@ -280,9 +306,25 @@ Adicionar projeto de exemplo aqui
   - Marque: Build when a change is pushed to GitLab. GitLab webhook URL: http://ci.localhost/project/tst-gitlab
   - Avançado
     - Allowed banches
-    - Selecione Filter barnches by name
+    - Selecione Filter branches by name
     - Include: master
-    - 
+    - Secret token: clique em Generate e anote: 28c146f2c31bc48d63f5ec5a0a9770e0
+  - Pipeline
+    - Definition: selecione: Pipeline script from SCM
+    - SCM: Git
+    - Repository URL: http://gitlab/jenkins_ci/pipeline1.git
+    - Credentials: selecione: root/****(gotlab_usr_pwd)
+- Clique em Salvar
+
+7 Disparo de Webhook 
+- Vá no gitlab http://fonte.localhost
+- Vá no projeto tst/tst-gitlab
+- No menu lateral: Configurações > Webhooks
+  - URL: http://jenkins:8080/project/tst-gitlab
+  - Secret Token: informe o que foi gerado na tarefa do jenkins
+  - Tirgger: Push events
+  - SSL Verification: desmarque
+  - Clique em Add webhook
 
 ## Arquivos
 
