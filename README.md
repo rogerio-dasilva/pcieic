@@ -79,21 +79,13 @@ Para o nginx fazer ligação com a porta 80 no WSL2 será necessário executar p
 sudo podman-compose up
 ```
 
-## Endereços carregados
-- <http://db.localhost> -> H2 Database
-- <http://web.localhost> -> Tomcat
-- <http://fontes.localhost> -> Gitlab
-- <http://binarios.localhost> -> JFrog Artifactory
-- <http://analise.localhost> -> SonarQube
-- <http://ci.localhost> -> Jenkins
-
 ## Docker Compose Services: Container Name/Hostname
-- jenkins: jenkins/ci.localhost
-- gitlab: gitlab/fontes.localhost
-- sonarqube: sonarqube/analise.localhost
-- h2: h2/db.localhost
-- artifactory: artifactory/binarios.localhost
-- tomcat: tomcat/web.localhost
+- jenkins: jenkins/ci.localhost <http://ci.localhost> -> Jenkins
+- gitlab: gitlab/fontes.localhost <http://fontes.localhost> -> Gitlab
+- sonarqube: sonarqube/analise.localhost <http://analise.localhost> -> SonarQube
+- h2: h2/db.localhost <http://db.localhost> -> H2 Database
+- artifactory: artifactory/binarios.localhost <http://binarios.localhost> -> JFrog Artifactory
+- tomcat: tomcat/web.localhost <http://web.localhost> -> Tomcat
 
 ## Credenciais e Chaves de Acesso default
 - Administrador usuario/senha do Jenkins: token de acesso da instalação incial
@@ -104,7 +96,7 @@ sudo podman-compose up
 - Administrador usuário/senha do tomcat: tomcat/tomcat
 
 ### Token da instalação incial do Jenkins
-É apresenta na log de inicialização o token para ser utilizado na configuração inicial do Jenkins, como mostrado abaixo:
+É apresento na saída do log de inicialização o token para ser utilizado na configuração inicial do Jenkins, como mostrado abaixo:
 
 ```log
 Jenkins initial setup is required. An admin user has been created and a password generated.
@@ -134,7 +126,17 @@ cat initialAdminPassword
 - Token do Artifactoy para usar no Jenkins:
 
 
+## Preparar a configuração das ferramentas
 
+### SonarQube
+
+- Use o acesso default para configurar a nova senha e anote
+- Criar o token de acesso para o Jenkins enviar os dados para o sonar
+  - No menu Admistration > Security > Users
+  - No usuário admin, na coluna Tokens, clique em Update Tokens
+  - Em generate Tokens, informe o nome, exemplo: sonar_token; Em Expires in escolha, No expiration; Clique em Generate
+  - Copie o token e anote: squ_be087d42133889a89af82538e3f9fd6879fbd366
+  - Clique em Done
 
 
 ## Arquivos
