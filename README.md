@@ -56,7 +56,7 @@ Estrutura de pastas e arquivos:
 
 
 ## Preparar Imagem Jenkins com plugins
-Criar imagem local do Jenkins com os plugins necessários que estão no arquivo build/plugins.txt.
+Criar imagem local do Jenkins com os plugins necessários que estão no arquivo construir/plugins.txt.
 
 Faça primeiro a construção, com sudo, da imagem jenkins com plugins selecionados para a imagem ficar disponível para o próximo passo.
 
