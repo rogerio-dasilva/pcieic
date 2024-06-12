@@ -19,7 +19,6 @@
 ```
 
 ## Baixar projeto
-
 ```shell
 git clone https://github.com/rogerio-dasilva/pcieic.git
 ```
@@ -57,7 +56,6 @@ Estrutura de pastas e arquivos:
 
 
 ## Preparar Imagem Jenkins com plugins
-
 Criar imagem local do Jenkins com os plugins necessários que estão no arquivo build/plugins.txt.
 
 Faça primeiro a construção, com sudo, da imagem jenkins com plugins selecionados para a imagem ficar disponível para o próximo passo.
@@ -70,7 +68,6 @@ sudo podman-compose build
 ```
 
 ## Iniciar
-
 Para o nginx fazer ligação com a porta 80 no WSL2 será necessário executar podman com sudo.
 
 > Nota: verifique se é necessário com docker/docker-compose
@@ -126,6 +123,7 @@ cat initialAdminPassword
 - Token do Artifactoy para usar no Jenkins:
 
 ## Preparar a configuração das ferramentas
+
 ### SonarQube
 - Use o acesso default para configurar a nova senha e anote
 - Criar o token de acesso para o Jenkins enviar os dados para o sonar
@@ -146,6 +144,8 @@ cat initialAdminPassword
   - Clique no ícone Copy Key to clipboard e anote: AKCpBseqkxSKiULPt4ecHcJAunro22qrbenWjdqfPsR8b2VEn7hX9ttbEB2L4vKh38L8wjvPS
 
 ### Gitlab
+
+1 Projeto de exemplo:
 - Use o acesso default para configurar a nova senha e anote
 - Clique em New Group: informe um nome qualquer. Exemplo: tst
 - Clique em Create group
@@ -155,9 +155,18 @@ cat initialAdminPassword
 - Clique em Clone para clonar localmente o projeto
 - Adicione o código exemplo e faça commit e push
 
+2 Pipeline Jenkins:
+- Clique em New Group: informe o nome: jenkins_ci
+- Clique em Create group
+- Clique em New project: informe o pipeline1.
+- Clique em Create project
+- Clique New file
+- Adicione o conteúdo de
+
+
 ## Arquivos
 
-Maven global settings.xml
+### Maven global settings.xml
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -262,7 +271,7 @@ Maven global settings.xml
 ```
 
 
-Jenkinsfile
+### Jenkinsfile
 
 ```groovy
 pipeline {
