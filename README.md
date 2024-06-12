@@ -185,7 +185,7 @@ Adicionar projeto de exemplo aqui
   - senha e confirma senha
   - nome completo
   - endereço de e-mail
-- Em Configurar instnacia, deixe o sugerido
+- Em Configurar instancia, deixe o sugerido
 
 2 Credenciais
 - Clique no menu: Gerenciar jenkins
@@ -199,10 +199,34 @@ Adicionar projeto de exemplo aqui
   - Secret: informe o token criado no sonar
   - ID: sonarqube_token
   - Description: sonarqube_token
-- Nova Credencila para Gitlab
+- Nova Credencial para Gitlab
   - Kind: Gitlab API Token
   - Scope: Global
   - API Token: informe o token criado no gitlab
+  - ID: gitlab_token
+  - Description: gitlab_token
+- Nova Credencial para Artifactory
+  - Kind:  Username with password
+  - Scope: Global
+  - Username: admin
+  - Passoword: informe o tokean api gerado no artifactory
+  - ID: artifactory_token
+  - Description: artifactory_token
+
+3 Arquivo Gerenciados
+- Clique no menu: Gerenciar jenkins
+- Clique em Managed Files
+- Clique Add a new Config
+  - Type: Global Maven settings.xml
+  - ID: global-maven-settings1
+  - Clique em next
+  - Name: global-maven-settings1
+  - Comment: Global maven settings para publicar no arifactory
+  - Clique em: Server Credentials > Adicionar
+  - ServerId: central
+  - Credentials: selecione: admin/***** (artifactory_token)
+  - Content: informe o conteúdo do xml Maven global settings.xml abaixo
+  - Clique em Submmit
 
 ## Arquivos
 
