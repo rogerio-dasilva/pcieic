@@ -226,7 +226,24 @@ Adicionar projeto de exemplo aqui
   - ServerId: central
   - Credentials: selecione: admin/***** (artifactory_token)
   - Content: informe o conteúdo do xml Maven global settings.xml abaixo
-  - Clique em Submmit
+  - Clique em Submit
+
+4 Cofiguração em System
+- Clique no menu: Gerenciar jenkins
+- Clique em: System
+- SonarQube installations
+  - Clique em Add SonarQube
+  - Name: sonarqube-instalacao
+  - Server URL: http://sonarqube:9000
+  - Server authenticationtoken: selecione: sonarqube_token
+- Usage Statistics
+  - desmarque Ajude o Jenkins a melhorar enviando relatórios anõnimos de erro
+- GitLab
+  - Connection name: gitlab
+  - GitLab host URL: http://gitlab
+  - Credentials: selecione: GitLab API TOken (gitlab_token)
+
+ 
 
 ## Arquivos
 
