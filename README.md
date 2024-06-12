@@ -54,7 +54,6 @@ Estrutura de pastas e arquivos:
 └── docker-compose.yml
 ```
 
-
 ## Preparar Imagem Jenkins com plugins
 Criar imagem local do Jenkins com os plugins necessários que estão no arquivo construir/plugins.txt.
 
@@ -148,8 +147,17 @@ cat initialAdminPassword
 
 ### Gitlab
 
-1 Projeto de exemplo:
+1 Login
 - Use o acesso default para configurar a nova senha e anote
+- Criar token de acesso
+  - Vá no menu Cofigurações no cabeçalho
+  - No menu lateral, escolha Tokens de acesso
+  - Nome: gitlab_token
+  - Expira: deixe em branco
+  - Scopes: marque: api, read_user, read_api, read_repository, write_repository
+  - Clique em Create acesso pessoal token e anote: 4Vff_1A5nTf6R_LKuWoH
+
+2 Projeto de exemplo:
 - Clique em New Group: informe um nome qualquer. Exemplo: tst
 - Clique em Create group
 - Clique em New project: informe um nome qualquer. Exemplo: tst-gitlab
@@ -158,7 +166,7 @@ cat initialAdminPassword
 - Clique em Clone para clonar localmente o projeto
 - Adicione o código exemplo e faça commit e push
 
-2 Pipeline Jenkins:
+3 Pipeline Jenkins:
 - Clique em New Group: informe o nome: jenkins_ci
 - Clique em Create group
 - Clique em New project: informe o pipeline1.
@@ -166,6 +174,35 @@ cat initialAdminPassword
 - Clique New file com o nome Jenkinsfile
 - Adicione o conteúdo de Jenkinsfile
 
+Adicionar projeto de exemplo aqui
+
+### Jenkins
+1 Login
+- Informe a chave jenkins fornecida para logar
+- Escolha instalaras extensões sugeridas
+- Preencha os dados do usuário e anote.
+  - nome do usuário
+  - senha e confirma senha
+  - nome completo
+  - endereço de e-mail
+- Em Configurar instnacia, deixe o sugerido
+
+2 Credenciais
+- Clique no menu: Gerenciar jenkins
+- Clique em credentials
+- Clique em System
+- Clique em Global credentials
+- Clique em Add Credentials
+- Nova credential para sonar
+  - Em Kind escolha: Secret text
+  - Scope: global
+  - Secret: informe o token criado no sonar
+  - ID: sonarqube_token
+  - Description: sonarqube_token
+- Nova Credencila para Gitlab
+  - Kind: Gitlab API Token
+  - Scope: Global
+  - API Token: informe o token criado no gitlab
 
 ## Arquivos
 
