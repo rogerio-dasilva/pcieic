@@ -263,7 +263,7 @@ Adicionar projeto de exemplo aqui
   - ID: global-maven-settings1
   - Clique em next
   - Name: global-maven-settings1
-  - Comment: Global maven settings para publicar no arifactory
+  - Comment: Global maven settings para publicar no artifactory
   - Clique em: Server Credentials > Adicionar
   - ServerId: central
   - Credentials: selecione: admin/***** (artifactory_token)
