@@ -144,6 +144,22 @@ cat initialAdminPassword
   - Em Current Password, informe a senha e clique em Unlock
   - Em Authentication Settings, API Key, Clique no ícone engrenagem, para gerar o token
   - Clique no ícone Copy Key to clipboard e anote: AKCpBseqkxSKiULPt4ecHcJAunro22qrbenWjdqfPsR8b2VEn7hX9ttbEB2L4vKh38L8wjvPS
+- Conceder acesso nos repositórios
+ - Nome menu lateral Admin
+ - Clique em Security > Groups
+ - Clique me New
+ - Group name: repo_writer
+ - Description: Gravar em repositórios
+ - Users: Select admin e mande para a direita
+ - Save
+ - Nom menu sevurity > permission
+ - Add permission
+ - Name: pemissions_deploy_repo
+ - Selecione todos os repos e mande para a direita
+ - Selecione Aba Groups
+ - Selecione repo_writer e mande para a direita
+ - Selecione os Repository actions: Read; Annotate; Deploy/Cache
+ - Save & Finish
 
 ### Gitlab
 
