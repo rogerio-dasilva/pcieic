@@ -372,14 +372,14 @@ Adicionar projeto de exemplo aqui
             <enabled>false</enabled>
           </snapshots>
           <id>central</id>
-          <name>libs-release</name>
-          <url>http://artifactory:8081/artifactory/libs-release</url>
+          <name>libs-release-local</name>
+          <url>http://artifactory:8081/artifactory/libs-release-local</url>
         </repository>
         <repository>
           <snapshots />
           <id>snapshots</id>
-          <name>libs-snapshot</name>
-          <url>http://artifactory:8081/artifactory/libs-snapshot</url>
+          <name>libs-snapshot-local</name>
+          <url>http://artifactory:8081/artifactory/libs-snapshot-local</url>
         </repository>
       </repositories>
       <pluginRepositories>
@@ -388,20 +388,20 @@ Adicionar projeto de exemplo aqui
             <enabled>false</enabled>
           </snapshots>
           <id>central</id>
-          <name>libs-release</name>
-          <url>http://artifactory:8081/artifactory/libs-release</url>
+          <name>libs-release-local</name>
+          <url>http://artifactory:8081/artifactory/libs-release-local</url>
         </pluginRepository>
         <pluginRepository>
           <snapshots />
           <id>snapshots</id>
-          <name>libs-snapshot</name>
-          <url>http://artifactory:8081/artifactory/libs-snapshot</url>
+          <name>libs-snapshot-local</name>
+          <url>http://artifactory:8081/artifactory/libs-snapshot-local</url>
         </pluginRepository>
       </pluginRepositories>
       <id>artifactory</id>
       <properties>
-        <altSnapshotDeploymentRepository>snapshots::http://artifactory:8081/artifactory/libs-snapshot/</altSnapshotDeploymentRepository>
-        <altReleaseDeploymentRepository>central::http://artifactory:8081/artifactory/libs-release/</altReleaseDeploymentRepository>
+        <altSnapshotDeploymentRepository>snapshots::http://artifactory:8081/artifactory/libs-snapshot-local/</altSnapshotDeploymentRepository>
+        <altReleaseDeploymentRepository>central::http://artifactory:8081/artifactory/libs-release-local/</altReleaseDeploymentRepository>
       </properties>
     </profile>
     <profile>
