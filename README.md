@@ -76,13 +76,16 @@ Para o nginx fazer ligação com a porta 80 no WSL2 será necessário executar p
 sudo podman-compose up
 ```
 
-## Docker Compose Services: Container Name/Hostname
-- jenkins: jenkins/ci.localhost <http://ci.localhost> -> Jenkins
-- gitlab: gitlab/fontes.localhost <http://fontes.localhost> -> Gitlab
-- sonarqube: sonarqube/analise.localhost <http://analise.localhost> -> SonarQube
-- h2: h2/db.localhost <http://db.localhost> -> H2 Database
-- artifactory: artifactory/binarios.localhost <http://binarios.localhost> -> JFrog Artifactory
-- tomcat: tomcat/web.localhost <http://web.localhost> -> Tomcat
+## Informações dos Containeres
+
+|service     |container_name|hostname          |url externa                 |url interna            |
+|------------|--------------|------------------|----------------------------|-----------------------|
+|jenkins     |jenkins       |ci.localhost      |<http://ci.localhost>       |http://jenkins:8080    |
+|gitlab      |gitlab        |fontes.localhost  |<http://fontes.localhost>   |http://gitlab          |
+|sonarqube   |sonarqube     |analise.localhost |<http://analise.localhost>  |http://sonarqube:9000  |
+|h2          |h2            |db.localhost      |<http://db.localhost>       |http://h2:8082         |
+|artifactory |artifactory   |binarios.localhost|<http://binarios.localhost> |http://artifactory:8081|
+|tomcat      |tomcat        |web.localhost     |<http://web.localhost>      |http://tomcat:8080     |
 
 ## Credenciais e Chaves de Acesso default
 - Administrador usuario/senha do Jenkins: token de acesso da instalação incial
