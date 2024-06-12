@@ -150,7 +150,10 @@ cat initialAdminPassword
 - Clique em New Group: informe um nome qualquer. Exemplo: tst
 - Clique em Create group
 - Clique em New project: informe um nome qualquer. Exemplo: tst-gitlab
+- Marque Initialize repository with a README
 - Clique em Create project
+- Clique em Clone para clonar localmente o projeto
+- Adicione o código exemplo e faça commit e push
 
 ## Arquivos
 
