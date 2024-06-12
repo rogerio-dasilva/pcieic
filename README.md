@@ -384,8 +384,8 @@ Adicionar projeto de exemplo aqui
       </pluginRepositories>
       <id>artifactory</id>
       <properties>
-        <altSnapshotDeploymentRepository>snapshots::default::http://artifactory:8081/artifactory/libs-snapshot/</altSnapshotDeploymentRepository>
-        <altReleaseDeploymentRepository>central::default::http://artifactory:8081/artifactory/libs-release/</altReleaseDeploymentRepository>
+        <altSnapshotDeploymentRepository>snapshots::http://artifactory:8081/artifactory/libs-snapshot/</altSnapshotDeploymentRepository>
+        <altReleaseDeploymentRepository>central::http://artifactory:8081/artifactory/libs-release/</altReleaseDeploymentRepository>
       </properties>
     </profile>
     <profile>
