@@ -119,11 +119,6 @@ cd /var/lib/containers/storage/volumes/ci_jenkins_home/_data/secrets/
 cat initialAdminPassword
 ```
 
-- Token do Gitlab para usar no Jenkins:
-- Token do Jenkins para usar no Gitlab:
-- Token do Sonar para usar no Jenkins:
-- Token do Artifactoy para usar no Jenkins:
-
 ## Preparar a configuração das ferramentas
 
 ### SonarQube
@@ -196,7 +191,7 @@ cat initialAdminPassword
 - Clique New file com o nome Jenkinsfile
 - Adicione o conteúdo de Jenkinsfile
 
-Adicionar projeto de exemplo aqui
+Adicionar projeto de exemplo aqui 
 
 ### Jenkins
 1 Login
