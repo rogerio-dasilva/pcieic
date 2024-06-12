@@ -160,8 +160,8 @@ cat initialAdminPassword
 - Clique em Create group
 - Clique em New project: informe o pipeline1.
 - Clique em Create project
-- Clique New file
-- Adicione o conteúdo de
+- Clique New file com o nome Jenkinsfile
+- Adicione o conteúdo de Jenkinsfile
 
 
 ## Arquivos
