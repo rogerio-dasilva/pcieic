@@ -192,6 +192,7 @@ cat initialAdminPassword
 - Adicione o conteúdo de Jenkinsfile
 
 Adicionar projeto de exemplo aqui 
+[tst-gitlab-master-jacoco.tar.gz](https://github.com/user-attachments/files/15812070/tst-gitlab-master-jacoco.tar.gz)
 
 ### Jenkins
 1 Login
