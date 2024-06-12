@@ -242,8 +242,47 @@ Adicionar projeto de exemplo aqui
   - Connection name: gitlab
   - GitLab host URL: http://gitlab
   - Credentials: selecione: GitLab API TOken (gitlab_token)
+- Clique em Salvar
 
- 
+5 Ferramentas do Jenkins
+- Clique no menu: Gerenciar jenkins
+- Clique em: Tools
+- Maven Configuration:
+  - Default global settings provider
+  - selecione provided global settings.xml
+  - selecione global-maven-settings1
+- JDK instalações
+  - Clique em Adicionar JDK
+  - Nome: openjdk-17
+  - JAVA_HOME: /opt/java/openjdk
+- SonarQube Scanner instalações
+  - Clique em Adicionar SonarQube Scanner
+  - Name: sonarqube-instalacao
+  - Deixe marqcado Instalar autoticamente
+    - Versão: SonarQube Scanner 6.0.0.4432
+- Maven instalações
+  - Clique em Adicionar Maven
+  - Nome: maven-instalacao
+  - Deixe marcado: Instalar automaticamente
+  - Versão: 3.9.7
+- Clique em Save
+
+ 6 Tarefas
+ - Clique no menu lateral: Novo tarefa
+ - Entre com um nome de item: tst-gitlab
+ - Select an item type: Pipeline
+ - Clique em Tudo certo
+
+7 Tarefa tst-gitlab
+- Descrição: Teste de integração
+- Gitlab Connections: gitlab
+- Build triggers
+  - Marque: Build when a change is pushed to GitLab. GitLab webhook URL: http://ci.localhost/project/tst-gitlab
+  - Avançado
+    - Allowed banches
+    - Selecione Filter barnches by name
+    - Include: master
+    - 
 
 ## Arquivos
 
