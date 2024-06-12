@@ -267,6 +267,9 @@ Adicionar projeto de exemplo aqui
   - Clique em: Server Credentials > Adicionar
   - ServerId: central
   - Credentials: selecione: admin/***** (artifactory_token)
+  - Clique em: Server Credentials > Adicionar
+  - ServerId: snapshots
+  - Credentials: selecione: admin/***** (artifactory_token)
   - Content: informe o conteúdo do xml Maven global settings.xml abaixo
   - Clique em Submit
 
