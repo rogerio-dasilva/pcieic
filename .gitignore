@@ -1,11 +1,12 @@
 /artifactory/
 /gitlab/
-/h2/
+/h2/data/
 /jenkins/
 /reposilite/
 /youtrack/
 /bkp/
 /tomcat/webapps/ROOT/
 /tomcat/webapps/ROOT.war
+/tomcat/logs/
 /construir/jenkins_home/
 docker-compose.yml.bkp
