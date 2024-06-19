@@ -108,3 +108,8 @@ maven-plugin:3.23
 pipeline-maven-api:1421.v610fa_b_e2d60e
 pipeline-maven:1421.v610fa_b_e2d60e
 maven-snapshot-check:1106.v529e6b_c11e8e
+dependency-check-jenkins-plugin:5.5.0
+docker-plugin:1.6.2
+docker-workflow:580.vc0c340686b_54
+docker-build-step:2.12
+adoptopenjdk:1.5
