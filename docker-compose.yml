@@ -1,9 +1,47 @@
 version: "3.8"
 services:
+  openldap: # cn=admin,dc=minhaempresa,dc=net,dc=br  # cn=readonly,dc=minhaempresa,dc=net,dc=br
+    image: "docker.io/osixia/openldap:1.5.0"
+    container_name: "openldap"
+    hostname: "openldap.localhost"
+#    command: "--loglevel debug"
+    environment:
+      - LDAP_ORGANISATION="Minha Empresa"
+      - LDAP_DOMAIN=minhaempresa.net.br
+      - LDAP_ADMIN_PASSWORD=admin1
+      - LDAP_CONFIG_PASSWORD=config
+      - LDAP_READONLY_USER=true
+      - LDAP_READONLY_USER_USERNAME=readonly
+      - LDAP_READONLY_USER_PASSWORD=readonly
+      - LDAP_TLS=false
+      - LDAP_TLS_VERIFY_CLIENT=never
+      - LDAP_REMOVE_CONFIG_AFTER_SETUP=false
+      - LDAP_SEED_INTERNAL_LDIF_PATH=/var/seed/ldif/minhaempresa.ldif
+    volumes:
+      - "./openldap/ldif/minhaempresa.ldif:/var/seed/ldif/minhaempresa.ldif"
+      - "openldap_database:/var/lib/ldap"
+      - "openldap_config:/etc/ldap/slapd.d"
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    networks:
+      - netprojeto
+  openldapadmin:
+    image: "docker.io/laineil/phpldapadmin:1.2.6.6"
+    container_name: "openldapadmin"
+    hostname: "ldap.localhost" # http://ldap.localhost/phpldapadmin
+    environment:
+      - LDAP_SERVER_HOST=openldap
+      - PHPLDAPADMIN_HTTPS=false
+    networks:
+      - netprojeto
+    depends_on:
+      - openldap
   h2:
     image: "docker.io/buildo/h2database:2020-12-11"
     container_name: "h2"
-    hostname: "db.localhost"
+    hostname: "db.localhost" # http://db.localhost
+    ports:
+      - "9092:9092"
     volumes:
       - "./h2/local:/var/local"
       - "h2_data:/h2-data"
@@ -14,7 +52,7 @@ services:
   artifactory:
     image: "releases-docker.jfrog.io/jfrog/artifactory-oss:6.23.42"
     container_name: "artifactory"
-    hostname: "binarios.localhost"
+    hostname: "binarios.localhost" # http://binarios.localhost
     privileged: true
     user: "root"
     environment:
@@ -31,7 +69,7 @@ services:
   jenkins:
     image: "ras/jenkins-plugins:2.460-jdk17"
     container_name: "jenkins"
-    hostname: "ci.localhost"
+    hostname: "ci.localhost" # http://ci.localhost
     privileged: true
     user: "root"
     volumes:
@@ -45,7 +83,7 @@ services:
   gitlab:
     image: "docker.io/gitlab/gitlab-ce:12.10.14-ce.0"
     container_name: "gitlab"
-    hostname: "fontes.localhost"
+    hostname: "fontes.localhost" # http://fontes.localhost
     restart: "always"
     volumes:
       - "gitlab_config:/etc/gitlab"
@@ -60,8 +98,9 @@ services:
   sonarqube:
     image: "docker.io/sonarqube:9.9-community"
     container_name: "sonarqube"
-    hostname: "analise.localhost"
+    hostname: "analise.localhost" # http://analise.localhost
     volumes:
+      - "./sonarqube/conf/sonar.properties:/opt/sonarqube/conf/sonar.properties"
       - "sonarqube_conf:/opt/sonarqube/conf"
       - "sonarqube_data:/opt/sonarqube/data"
       - "sonarqube_extensions:/opt/sonarqube/extensions"
@@ -73,22 +112,69 @@ services:
       - netprojeto
     depends_on:
       - jenkins
+  james:
+    image: "docker.io/apache/james:jpa-3.8.1"
+    container_name: "james"
+    hostname: "james.localhost"
+    ports:
+      - "8025:25"   # SMTP without authentication
+#      - "8110:110"  # POP3
+#      - "8143:143"  # IMAP with startTLS enabled
+      - "8465:465"  # SMTP with authentication and socketTLS enabled
+#      - "8587:587"  # SMTP with authentication and startTLS enabled
+#      - "8993:993"  # IMAP with socketTLS enabled
+#      - "8800:8000" # Web Admin interface (unsecured: expose at your own risks)
+    networks:
+      - netprojeto
+    volumes:
+      - "./james/conf:/root/conf"
+      - "james_store:/var/store"
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    depends_on:
+      - openldap
+  roundcubemail:
+    image: "docker.io/roundcube/roundcubemail:1.6.7-apache"
+    container_name: "roundcubemail"
+    hostname: "roundcubemail.localhost"
+#    ports:
+#      - "9002:80"
+    environment:
+      - ROUNDCUBEMAIL_DB_TYPE=sqlite
+      - ROUNDCUBEMAIL_SKIN=elastic
+      - ROUNDCUBEMAIL_DEFAULT_HOST=james
+      - ROUNDCUBEMAIL_DEFAULT_PORT=143
+      - ROUNDCUBEMAIL_SMTP_SERVER=james
+      - ROUNDCUBEMAIL_SMTP_PORT=587
+    networks:
+      - netprojeto
+    volumes:
+      - "roundcubemail_var:/var/roundcube"
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    depends_on:
+      - james
   tomcat:
     image: docker.io/tomcat:9.0.89-jre17
     container_name: tomcat
-    hostname: "web.localhost"
+    hostname: "web.localhost" # http://web.localhost
     environment:
       - CATALINA_OPTS="-Dtomcat.ambiente=producao"
     volumes:
       - "./tomcat/config/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml"
+      - "./tomcat/config/context.xml:/usr/local/tomcat/conf/context.xml"
+      - "./tomcat/config/catalina.properties:/usr/local/tomcat/conf/catalina.properties"
+      - "./tomcat/extralibs:/usr/local/tomcat/extralibs"
       - "./tomcat/logs:/usr/local/tomcat/logs"
+#      - "./tomcat/webapps/manager:/usr/local/tomcat/webapps/manager"
+#      - "./tomcat/webapps/host-manager:/usr/local/tomcat/webapps/host-manager"
       - "./tomcat/webapps:/usr/local/tomcat/webapps"
       - "/etc/timezone:/etc/timezone:ro"
       - "/etc/localtime:/etc/localtime:ro"
     networks:
       - netprojeto
     depends_on:
-      - sonarqube
+      - openldap
   nginx:
     image: "docker.io/nginx:1.26.0-perl"
     container_name: "nginx"
@@ -108,6 +194,8 @@ services:
     depends_on:
       - tomcat
 volumes:
+  openldap_database:
+  openldap_config:
   h2_data:
   devh2_data:
   jenkins_home:
@@ -120,6 +208,8 @@ volumes:
   sonarqube_extensions:
   sonarqube_logs:
   sonarqube_temp:
+  james_store:
+  roundcubemail_var:
   nginx_log:
 networks:
   netprojeto:

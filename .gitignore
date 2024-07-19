@@ -5,8 +5,7 @@
 /reposilite/
 /youtrack/
 /bkp/
-/tomcat/webapps/ROOT/
-/tomcat/webapps/ROOT.war
+/tomcat/webapps/ROOT*
 /tomcat/logs/
 /construir/jenkins_home/
 docker-compose.yml.bkp
